@@ -38,7 +38,7 @@ Run:
 `nano __init__.py`
 
 
-*Here is where we have our initialization script for our Flask application. You can actually keep all of your main website code right here for simplicity's sake, and that's what we'll be doing. Within your init.py file, you will type:
+* Here is where we have our initialization script for our Flask application. You can actually keep all of your main website code right here for simplicity's sake, and that's what we'll be doing. Within your init.py file, you will type:
 ```
 #! /bin/usr/python
 from flask import Flask
@@ -132,7 +132,7 @@ Thanks
 
 ==========================================================================
 
-*Private Key : `/home/grader/.ssh`
+* Private Key : `/home/grader/.ssh`
 ```
 -----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAxMVWJkDkuHWN4RoekKSfvzg5ByTkHrZF04jhpvJ4C7SaOE1S
