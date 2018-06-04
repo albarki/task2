@@ -1,50 +1,45 @@
-# task2
-IP Add 13.232.58.110
-SSH Port 2200
-URL 13.232.58.110.xip.io
-# Summary
+## task2:
+* IP Add `13.232.58.110`
+* SSH Port `2200`
+* URL `13.232.58.110.xip.io`
+### Summary"
 First, you'll need to run:
-sudo apt-get install apache2 mysql-client mysql-server
+* `sudo apt-get install apache2 mysql-client mysql-server`
 
-Once you do that, you'll get the start up page for MySQL, where you will need to set your root user for MySQL. This is the specific MySQL root user, not your server root user.
+* Once you do that, you'll get the start up page for MySQL, where you will need to set your root user for MySQL. This is the specific MySQL root user, not your server root user.
 That setup should take about 20-30 seconds. After that, we need to get WSGI, so run the following:
-sudo apt-get install libapache2-mod-wsgi
+`sudo apt-get install libapache2-mod-wsgi`
 
-Once we have that, we need to make sure we've enabled WSGI with the following:
-sudo a2enmod wsgi
+* Once we have that, we need to make sure we've enabled WSGI with the following:
+`sudo a2enmod wsgi`
 
-It is probably already enabled from the installation, but it is a good idea to make sure.
+* It is probably already enabled from the installation, but it is a good idea to make sure.
 Next we are ready to set up our Flask environment.
 Run:
-cd /var/www/
+`cd /var/www/`
 
-Now let's make our Flask environment directory:
-mkdir FlaskApp
+* Now let's make our Flask environment directory:
+`mkdir FlaskApp`
 
-Move into that directory:
-cd FlaskApp
+* Move into that directory:
+`cd FlaskApp`
 
-Now make the actual application directory:
-mkdir FlaskApp
+* Now make the actual application directory:
+`mkdir FlaskApp`
 
-Now let's go in there:
-cd FlaskApp/
+* Now let's go in there:
+`cd FlaskApp/`
 
-Now we're going to make two directories, static and template:
-mkdir static
-mkdir templates
+* Now we're going to make two directories, static and template:
+  - `mkdir static`
+  - `mkdir templates`
 
-Now we're ready to create the main file for your first Flask App:
-nano __init__.py
-
-
+* Now we're ready to create the main file for your first Flask App:
+`nano __init__.py`
 
 
-
-
-
-Here is where we have our initialization script for our Flask application. You can actually keep all of your main website code right here for simplicity's sake, and that's what we'll be doing. Within your init.py file, you will type:
-
+*Here is where we have our initialization script for our Flask application. You can actually keep all of your main website code right here for simplicity's sake, and that's what we'll be doing. Within your init.py file, you will type:
+```
 #! /bin/usr/python
 from flask import Flask
 
@@ -57,33 +52,36 @@ def homepage():
 
 if __name__ == "__main__":
     app.run()
+
 ==========================================
+```
 
-To get Flask, we're going to use pip, so you will need to first get pip if you do not already have it:
-apt-get install python-pip
+* To get Flask, we're going to use pip, so you will need to first get pip if you do not already have it:
+`apt-get install python-pip`
 
-Now that we have pip, we also need virtualenv to create the virtual environment for Flask to run Python and your application in:
-pip install virtualenv
+* Now that we have pip, we also need virtualenv to create the virtual environment for Flask to run Python and your application in:
+`pip install virtualenv`
 
-Now to set up the virtualenv directory:
-sudo virtualenv venv
+* Now to set up the virtualenv directory:
+`sudo virtualenv venv`
 
-Activate the virtual environment:
-source venv/bin/activate
+* Activate the virtual environment:
+`source venv/bin/activate`
 
-Now install Flask within your virtual environment:
+* Now install Flask within your virtual environment:
 
-pip install Flask
+`pip install Flask`
 
-Find out if everything worked out by going:
-python init.py
+* Find out if everything worked out by going:
+`python init.py`
 
 ==========================
-So now we need to set up our Flask configuration file:
-vi /etc/apache2/sites-available/FlaskApp.conf
 
-This is where your Flask configuration goes, which will apply to your live web site. Here's the code that you need to include:
+* So now we need to set up our Flask configuration file:
+`vi /etc/apache2/sites-available/FlaskApp.conf`
 
+* This is where your Flask configuration goes, which will apply to your live web site. Here's the code that you need to include:
+```
 <VirtualHost *:80
                 ServerAdmin jhonesava123@gmail.com
                 WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
@@ -100,17 +98,22 @@ This is where your Flask configuration goes, which will apply to your live web s
                 LogLevel warn
                 CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
+```
+
 ====================
 
-sudo a2ensite FlaskApp
-service apache2 reload
+  - `sudo a2ensite FlaskApp`
+  - `service apache2 reload`
 
-Almost there... now we just need to configure our WSGI file. To do this:
-cd /var/www/FlaskApp
+* Almost there... now we just need to configure our WSGI file. To do this:
+`cd /var/www/FlaskApp`
+
 ===========
-vi flaskapp.wsgi
-Within the wsgi file, enter:
 
+`vi flaskapp.wsgi`
+
+* Within the wsgi file, enter:
+```
 #!/usr/bin/python
 import sys
 import logging
@@ -119,17 +122,18 @@ sys.path.insert(0,"/var/www/FlaskApp/")
 
 from FlaskApp import app as applicatio
 ================================
+```
+* `service apache2 restart`
 
-service apache2 restart
 
-
-Then goto your web browser and type the ip address.
+* Then goto your web browser and type the ip address.
 
 Thanks
 
 ==========================================================================
-Private Key 
-/home/grader/.ssh
+
+*Private Key : `/home/grader/.ssh`
+```
 -----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAxMVWJkDkuHWN4RoekKSfvzg5ByTkHrZF04jhpvJ4C7SaOE1S
 ybs06nDhmey54q++l//WETvIRVI9SVSPzh8SM+hKLVFRgeqTic1f8/fR1AT8t9YS
@@ -157,3 +161,4 @@ sFNbeQKBgD94GHZ07GTod89dOU9ewBd5oZbbYe2lRdM/VwZav0bgsCqhttwgSbA/
 sjJ3YA/gSeqqttUWkKt4uwnWbeD3iRFgTxN6AD/8GcF3HK4kzUKmy21Tx9+6U3qH
 smCFU8ec8HNYPGzzWv+GVFTGS0ZVBntGqLgwWmopwN2OIIpQpdiM
 -----END RSA PRIVATE KEY-----
+```
